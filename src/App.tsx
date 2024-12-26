@@ -16,103 +16,103 @@ const router = createBrowserRouter([
         element: <Index />,
         errorElement: <ErrorBoundary />
       },
-      // Common routes for all roles
+      // Dynamic role-based routes
       {
-        path: ":role/dashboard",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      {
-        path: ":role/profile",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      {
-        path: ":role/notifications",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      {
-        path: ":role/settings",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      // Designer routes
-      {
-        path: "designer/wireframes",
-        element: <WireframesPage />,
-        errorElement: <ErrorBoundary />
-      },
-      {
-        path: "designer/mockups",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      {
-        path: "designer/prototypes",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      {
-        path: "designer/system",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      // Construction routes
-      {
-        path: "construction/sites",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      {
-        path: "construction/progress",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      {
-        path: "construction/schedule",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      {
-        path: "construction/contracts",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      // Architect routes
-      {
-        path: "architect/blueprints",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      {
-        path: "architect/models",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      {
-        path: "architect/site-analysis",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      // Client routes
-      {
-        path: "client/dashboard",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      {
-        path: "client/projects",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-      {
-        path: "client/timeline",
-        element: <Index />,
-        errorElement: <ErrorBoundary />
-      },
-    ],
-  },
+        path: ":role/*",
+        children: [
+          {
+            path: "dashboard",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          {
+            path: "profile",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          {
+            path: "notifications",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          {
+            path: "settings",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          // Designer routes
+          {
+            path: "wireframes",
+            element: <WireframesPage />,
+            errorElement: <ErrorBoundary />
+          },
+          {
+            path: "mockups",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          {
+            path: "prototypes",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          {
+            path: "system",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          // Construction routes
+          {
+            path: "sites",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          {
+            path: "progress",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          {
+            path: "schedule",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          {
+            path: "contracts",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          // Architect routes
+          {
+            path: "blueprints",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          {
+            path: "models",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          {
+            path: "site-analysis",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          // Client routes
+          {
+            path: "projects",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          },
+          {
+            path: "timeline",
+            element: <Index />,
+            errorElement: <ErrorBoundary />
+          }
+        ]
+      }
+    ]
+  }
 ]);
 
 export default function App() {
