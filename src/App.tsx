@@ -17,11 +17,30 @@ const router = createBrowserRouter([
         errorElement: <ErrorBoundary />
       },
       {
+        path: "dashboard",
+        element: <Index />,
+        errorElement: <ErrorBoundary />
+      },
+      {
+        path: "profile",
+        element: <Index />,
+        errorElement: <ErrorBoundary />
+      },
+      {
+        path: "notifications",
+        element: <Index />,
+        errorElement: <ErrorBoundary />
+      },
+      {
+        path: "settings",
+        element: <Index />,
+        errorElement: <ErrorBoundary />
+      },
+      {
         path: "design/wireframes",
         element: <WireframesPage />,
         errorElement: <ErrorBoundary />
       },
-      // Add other routes as needed
     ],
   },
 ]);
