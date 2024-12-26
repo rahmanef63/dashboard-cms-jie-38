@@ -5,9 +5,10 @@ import WireframesPage from "@/pages/design/wireframes";
 
 export interface RouteConfig {
   path: string;
-  element: React.ReactNode;
+  element?: React.ReactNode;
   errorElement?: React.ReactNode;
   children?: RouteConfig[];
+  index?: boolean;
 }
 
 // Common routes shared across all roles
@@ -49,6 +50,8 @@ export const generateRoleRoutes = () => {
   
   return roles.map((role) => ({
     path: role,
+    element: <DashboardLayout />,
+    errorElement: <ErrorBoundary />,
     children: [
       ...commonRoutes,
       ...roleSpecificRoutes[role as keyof typeof roleSpecificRoutes],
@@ -65,7 +68,7 @@ export const routeConfig: RouteConfig = {
     {
       index: true,
       element: <Index />,
-      errorElement: <ErrorBoundary />
+      errorElement: <ErrorBoundary />,
     },
     ...generateRoleRoutes(),
   ],
