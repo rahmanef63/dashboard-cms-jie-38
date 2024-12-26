@@ -1,5 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import Index from "@/pages/Index";
 import { constructionRoutes } from "./roles/construction";
 import { designerRoutes } from "./roles/designer";
