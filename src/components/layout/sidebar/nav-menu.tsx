@@ -37,7 +37,7 @@ export function NavMenu() {
                 open={openSections.includes(item.label)}
                 onOpenChange={() => toggleSection(item.label)}
               >
-                <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-4 py-2 text-sm font-medium hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
+                <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-4 py-2 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
                   <div className="flex items-center gap-2">
                     {item.icon && <item.icon className="h-4 w-4" />}
                     <span>{item.label}</span>

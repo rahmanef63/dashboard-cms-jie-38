@@ -11,15 +11,15 @@ export function Sidebar() {
       <div className="p-3">
         <TeamSwitcher />
       </div>
-      <Separator />
+      <Separator className="bg-sidebar-border" />
       <div className="p-3">
         <RoleSwitcher />
       </div>
-      <Separator />
+      <Separator className="bg-sidebar-border" />
       <ScrollArea className="flex-1">
         <NavMenu />
       </ScrollArea>
-      <Separator />
+      <Separator className="bg-sidebar-border" />
       <div className="p-3">
         <UserProfile />
       </div>
