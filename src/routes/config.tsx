@@ -2,17 +2,10 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import Index from "@/pages/Index";
 import WireframesPage from "@/pages/design/wireframes";
-
-export interface RouteConfig {
-  path: string;
-  element?: React.ReactNode;
-  errorElement?: React.ReactNode;
-  children?: RouteConfig[];
-  index?: boolean;
-}
+import { RouteObject } from "react-router-dom";
 
 // Common routes shared across all roles
-const commonRoutes = [
+const commonRoutes: RouteObject[] = [
   { path: 'dashboard', element: <Index />, errorElement: <ErrorBoundary /> },
   { path: 'profile', element: <Index />, errorElement: <ErrorBoundary /> },
   { path: 'notifications', element: <Index />, errorElement: <ErrorBoundary /> },
@@ -20,7 +13,7 @@ const commonRoutes = [
 ];
 
 // Role-specific routes
-const roleSpecificRoutes = {
+const roleSpecificRoutes: { [key: string]: RouteObject[] } = {
   designer: [
     { path: 'wireframes', element: <WireframesPage />, errorElement: <ErrorBoundary /> },
     { path: 'mockups', element: <Index />, errorElement: <ErrorBoundary /> },
@@ -45,7 +38,7 @@ const roleSpecificRoutes = {
 };
 
 // Generate dynamic role-based routes
-export const generateRoleRoutes = () => {
+export const generateRoleRoutes = (): RouteObject[] => {
   const roles = Object.keys(roleSpecificRoutes);
   
   return roles.map((role) => ({
@@ -60,12 +53,13 @@ export const generateRoleRoutes = () => {
 };
 
 // Root route configuration
-export const routeConfig: RouteConfig = {
+export const routeConfig: RouteObject = {
   path: "/",
   element: <DashboardLayout />,
   errorElement: <ErrorBoundary />,
   children: [
     {
+      path: "",
       index: true,
       element: <Index />,
       errorElement: <ErrorBoundary />,
