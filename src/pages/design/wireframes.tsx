@@ -2,64 +2,40 @@ import { PageLayout } from "@/components/layout/page-layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Grid, Layout, Layers, PenTool } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
-
-interface Wireframe {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  lastModified: string;
-  status: "draft" | "in-review" | "approved";
-}
-
-const wireframes: Wireframe[] = [
-  {
-    id: "1",
-    title: "Homepage Layout",
-    description: "Main landing page wireframe with hero section and feature highlights",
-    image: "photo-1488590528505-98d2b5aba04b",
-    lastModified: "2024-02-15",
-    status: "approved"
-  },
-  {
-    id: "2",
-    title: "Dashboard Interface",
-    description: "User dashboard with analytics and activity feed",
-    image: "photo-1486312338219-ce68d2c6f44d",
-    lastModified: "2024-02-14",
-    status: "in-review"
-  },
-  {
-    id: "3",
-    title: "Mobile Navigation",
-    description: "Responsive navigation patterns for mobile devices",
-    image: "photo-1581091226825-a6a2a5aee158",
-    lastModified: "2024-02-13",
-    status: "draft"
-  }
-];
+import { useWireframes } from "@/hooks/use-wireframes";
 
 export default function WireframesPage() {
-  const { toast } = useToast();
+  const {
+    wireframes,
+    isLoading,
+    error,
+    viewMode,
+    handleEdit,
+    handlePreview,
+    toggleViewMode
+  } = useWireframes();
 
-  const handleEdit = (id: string) => {
-    console.log("Editing wireframe:", id);
-    toast({
-      title: "Edit mode activated",
-      description: "Opening wireframe editor...",
-    });
-  };
+  if (isLoading) {
+    return (
+      <PageLayout title="Wireframes">
+        <div className="flex items-center justify-center h-64">
+          <p className="text-muted-foreground">Loading wireframes...</p>
+        </div>
+      </PageLayout>
+    );
+  }
 
-  const handlePreview = (id: string) => {
-    console.log("Previewing wireframe:", id);
-    toast({
-      title: "Preview mode",
-      description: "Loading wireframe preview...",
-    });
-  };
+  if (error) {
+    return (
+      <PageLayout title="Wireframes">
+        <div className="flex items-center justify-center h-64">
+          <p className="text-destructive">Error loading wireframes</p>
+        </div>
+      </PageLayout>
+    );
+  }
 
-  const getStatusColor = (status: Wireframe["status"]) => {
+  const getStatusColor = (status: "draft" | "in-review" | "approved") => {
     switch (status) {
       case "approved":
         return "text-green-500";
@@ -77,11 +53,21 @@ export default function WireframesPage() {
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <div className="flex gap-2">
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleViewMode}
+              className={viewMode === 'grid' ? 'bg-accent' : ''}
+            >
               <Grid className="w-4 h-4 mr-2" />
               Grid View
             </Button>
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleViewMode}
+              className={viewMode === 'list' ? 'bg-accent' : ''}
+            >
               <Layout className="w-4 h-4 mr-2" />
               List View
             </Button>
@@ -92,8 +78,11 @@ export default function WireframesPage() {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {wireframes.map((wireframe) => (
+        <div className={viewMode === 'grid' 
+          ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          : "space-y-4"
+        }>
+          {wireframes?.map((wireframe) => (
             <Card key={wireframe.id} className="flex flex-col">
               <CardHeader>
                 <CardTitle className="text-xl">{wireframe.title}</CardTitle>
