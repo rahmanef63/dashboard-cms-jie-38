@@ -3,6 +3,7 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import Index from "@/pages/Index";
 
 export const designerRoutes: RouteObject[] = [
+  { path: 'dashboard', element: <Index />, errorElement: <ErrorBoundary /> },
   {
     path: 'design',
     children: [
