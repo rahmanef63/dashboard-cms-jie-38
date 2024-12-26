@@ -1,6 +1,6 @@
 import { PageLayout } from "@/components/layout/page-layout";
 
-const ActiveSites = () => {
+export default function ActiveSites() {
   return (
     <PageLayout title="Active Sites">
       <div className="space-y-4">
@@ -18,6 +18,4 @@ const ActiveSites = () => {
       </div>
     </PageLayout>
   );
-};
-
-export default ActiveSites;
+}

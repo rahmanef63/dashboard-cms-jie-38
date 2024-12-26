@@ -7,6 +7,7 @@ import Schedule from "@/pages/projects/schedule";
 import BudgetTracking from "@/pages/projects/budget-tracking";
 
 export const constructionRoutes: RouteObject[] = [
+  { path: 'dashboard', element: <Index />, errorElement: <ErrorBoundary /> },
   {
     path: 'projects',
     children: [
@@ -24,6 +25,7 @@ export const constructionRoutes: RouteObject[] = [
       { path: 'announcements', element: <Index />, errorElement: <ErrorBoundary /> },
       { path: 'feedback', element: <Index />, errorElement: <ErrorBoundary /> },
       { path: 'support', element: <Index />, errorElement: <ErrorBoundary /> },
-    ]
+    ],
+    errorElement: <ErrorBoundary />
   },
 ];
