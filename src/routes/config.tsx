@@ -38,31 +38,26 @@ const roleSpecificRoutes: { [key: string]: RouteObject[] } = {
 };
 
 // Generate dynamic role-based routes
-export const generateRoleRoutes = (): RouteObject[] => {
+const generateRoleRoutes = (): RouteObject[] => {
   const roles = Object.keys(roleSpecificRoutes);
   
   return roles.map((role) => ({
     path: role,
-    element: <DashboardLayout />,
-    errorElement: <ErrorBoundary />,
     children: [
       ...commonRoutes,
-      ...roleSpecificRoutes[role as keyof typeof roleSpecificRoutes],
+      ...roleSpecificRoutes[role],
     ],
   }));
 };
 
 // Root route configuration
 export const routeConfig: RouteObject = {
-  path: "/",
   element: <DashboardLayout />,
   errorElement: <ErrorBoundary />,
   children: [
     {
-      path: "",
-      index: true,
+      path: "/",
       element: <Index />,
-      errorElement: <ErrorBoundary />,
     },
     ...generateRoleRoutes(),
   ],
