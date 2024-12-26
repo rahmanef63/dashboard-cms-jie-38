@@ -2,62 +2,55 @@ import { RouteObject } from "react-router-dom";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import Index from "@/pages/Index";
+import WireframesPage from "@/pages/design/wireframes";
+import ActiveSites from "@/pages/projects/sites";
+import Notifications from "@/pages/notifications";
+
+// Import role-specific routes
 import { constructionRoutes } from "./roles/construction";
 import { designerRoutes } from "./roles/designer";
 import { architectRoutes } from "./roles/architect";
 import { clientRoutes } from "./roles/client";
 
-// Common routes shared across all roles
-const commonRoutes: RouteObject[] = [
-  { 
-    path: 'dashboard', 
-    element: <Index />, 
-    errorElement: <ErrorBoundary /> 
-  },
-  { 
-    path: 'profile', 
-    element: <Index />, 
-    errorElement: <ErrorBoundary /> 
-  },
-  { 
-    path: 'notifications', 
-    element: <Index />, 
-    errorElement: <ErrorBoundary /> 
-  },
-  { 
-    path: 'settings', 
-    element: <Index />, 
-    errorElement: <ErrorBoundary /> 
-  },
-];
-
-// Role-specific routes
-const roleSpecificRoutes: { [key: string]: RouteObject[] } = {
-  construction: [...commonRoutes, ...constructionRoutes],
-  designer: [...commonRoutes, ...designerRoutes],
-  architect: [...commonRoutes, ...architectRoutes],
-  client: [...commonRoutes, ...clientRoutes],
-};
-
-// Generate dynamic role-based routes
-const generateRoleRoutes = (): RouteObject[] => {
-  const roles = Object.keys(roleSpecificRoutes);
-  
-  return roles.map((role) => ({
-    path: role,
-    children: roleSpecificRoutes[role],
-  }));
-};
-
-// Root route configuration
 export const routeConfig: RouteObject = {
+  path: "/",
   element: <DashboardLayout />,
   errorElement: <ErrorBoundary />,
   children: [
     {
-      path: "/",
+      index: true,
       element: <Index />,
+      errorElement: <ErrorBoundary />
     },
-    ...generateRoleRoutes(),
-  ],
+    // Construction routes
+    {
+      path: "construction/*",
+      children: constructionRoutes,
+      errorElement: <ErrorBoundary />
+    },
+    // Designer routes
+    {
+      path: "designer/*",
+      children: designerRoutes,
+      errorElement: <ErrorBoundary />
+    },
+    // Architect routes
+    {
+      path: "architect/*",
+      children: architectRoutes,
+      errorElement: <ErrorBoundary />
+    },
+    // Client routes
+    {
+      path: "client/*",
+      children: clientRoutes,
+      errorElement: <ErrorBoundary />
+    },
+    // Common routes
+    {
+      path: "notifications",
+      element: <Notifications />,
+      errorElement: <ErrorBoundary />
+    }
+  ]
 };
