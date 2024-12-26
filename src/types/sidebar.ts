@@ -5,6 +5,7 @@ export interface User {
   email: string;
   avatar: string;
   role: string;
+  plan?: string; // Added plan as optional property
 }
 
 export interface Team {
