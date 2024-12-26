@@ -1,7 +1,8 @@
-import { Outlet, useRouteError } from "react-router-dom";
+import { Outlet, useRouteError, useLocation, Navigate } from "react-router-dom";
 import { Sidebar } from "./sidebar";
 import { AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigation } from "@/hooks/use-navigation";
 
 function DashboardError() {
   const error = useRouteError() as Error;
@@ -39,6 +40,15 @@ function DashboardError() {
 }
 
 export function DashboardLayout() {
+  const location = useLocation();
+  const { canAccessRoute } = useNavigation();
+
+  // Check if the current route is accessible
+  if (!canAccessRoute(location.pathname)) {
+    console.log('Access denied to route:', location.pathname);
+    return <Navigate to="/dashboard" replace />;
+  }
+
   return (
     <div className="flex h-screen bg-background">
       <Sidebar />
