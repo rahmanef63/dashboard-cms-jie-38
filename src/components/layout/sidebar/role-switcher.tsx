@@ -1,8 +1,14 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useNavigation } from "@/hooks/use-navigation";
 import { sidebarData } from "@/data/sidebar";
 import { UserCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export function RoleSwitcher() {
   const { activeRole, setActiveRole } = useNavigation();
@@ -10,8 +16,7 @@ export function RoleSwitcher() {
 
   const handleRoleChange = (newRole: string) => {
     setActiveRole(newRole);
-    // Navigate to dashboard when role changes
-    navigate('/dashboard');
+    navigate(`/${newRole}/dashboard`);
   };
 
   return (
@@ -19,16 +24,13 @@ export function RoleSwitcher() {
       <SelectTrigger className="w-full">
         <div className="flex items-center gap-2">
           <UserCircle className="h-4 w-4" />
-          <SelectValue />
+          <SelectValue placeholder="Select role" />
         </div>
       </SelectTrigger>
       <SelectContent>
         {sidebarData.availableRoles.map((role) => (
           <SelectItem key={role} value={role}>
-            <div className="flex items-center gap-2">
-              <UserCircle className="h-4 w-4" />
-              <span className="capitalize">{role}</span>
-            </div>
+            {role.charAt(0).toUpperCase() + role.slice(1)}
           </SelectItem>
         ))}
       </SelectContent>

@@ -25,17 +25,25 @@ export const useNavigation = create<NavigationStore>()(
         const menuItems = sidebarData.roleMenus?.[activeRole] || [];
         
         // Common routes are always accessible
-        const commonRoutes = ['/dashboard', '/profile', '/notifications', '/settings', '/'];
-        if (commonRoutes.includes(path)) {
-          return true;
-        }
-
+        const commonRoutes = ['dashboard', 'profile', 'notifications', 'settings', ''];
+        const pathParts = path.split('/').filter(Boolean);
+        
+        // Handle root path
+        if (path === '/') return true;
+        
+        // If the path starts with a role, check if it matches the active role
+        if (pathParts[0] !== activeRole) return false;
+        
+        // Check if it's a common route
+        if (commonRoutes.includes(pathParts[1])) return true;
+        
         // Check if the current path matches any of the role's menu items
         return menuItems.some(section => 
           section.items.some(item =>
-            item.subItems.some(subItem => 
-              path.startsWith(subItem.href.split('/')[1])
-            )
+            item.subItems.some(subItem => {
+              const subItemPath = subItem.href.split('/').filter(Boolean);
+              return pathParts.join('/') === subItemPath.join('/');
+            })
           )
         );
       },

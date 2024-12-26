@@ -18,80 +18,80 @@ const router = createBrowserRouter([
       },
       // Common routes for all roles
       {
-        path: "dashboard",
+        path: ":role/dashboard",
         element: <Index />,
         errorElement: <ErrorBoundary />
       },
       {
-        path: "profile",
+        path: ":role/profile",
         element: <Index />,
         errorElement: <ErrorBoundary />
       },
       {
-        path: "notifications",
+        path: ":role/notifications",
         element: <Index />,
         errorElement: <ErrorBoundary />
       },
       {
-        path: "settings",
+        path: ":role/settings",
         element: <Index />,
         errorElement: <ErrorBoundary />
       },
       // Designer routes
       {
-        path: "design/wireframes",
+        path: "designer/wireframes",
         element: <WireframesPage />,
         errorElement: <ErrorBoundary />
       },
       {
-        path: "design/mockups",
+        path: "designer/mockups",
         element: <Index />,
         errorElement: <ErrorBoundary />
       },
       {
-        path: "design/prototypes",
+        path: "designer/prototypes",
         element: <Index />,
         errorElement: <ErrorBoundary />
       },
       {
-        path: "design/system",
+        path: "designer/system",
         element: <Index />,
         errorElement: <ErrorBoundary />
       },
       // Construction routes
       {
-        path: "projects/sites",
+        path: "construction/sites",
         element: <Index />,
         errorElement: <ErrorBoundary />
       },
       {
-        path: "projects/progress",
+        path: "construction/progress",
         element: <Index />,
         errorElement: <ErrorBoundary />
       },
       {
-        path: "projects/schedule",
+        path: "construction/schedule",
         element: <Index />,
         errorElement: <ErrorBoundary />
       },
       {
-        path: "projects/contracts",
+        path: "construction/contracts",
         element: <Index />,
         errorElement: <ErrorBoundary />
       },
       // Architect routes
       {
-        path: "architecture/blueprints",
+        path: "architect/blueprints",
         element: <Index />,
         errorElement: <ErrorBoundary />
       },
       {
-        path: "architecture/models",
+        path: "architect/models",
         element: <Index />,
         errorElement: <ErrorBoundary />
       },
       {
-        path: "architecture/site-analysis",
+        path: "architect/site-analysis",
         element: <Index />,
         errorElement: <ErrorBoundary />
       },

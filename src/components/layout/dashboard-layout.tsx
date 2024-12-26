@@ -41,12 +41,12 @@ function DashboardError() {
 
 export function DashboardLayout() {
   const location = useLocation();
-  const { canAccessRoute } = useNavigation();
+  const { canAccessRoute, activeRole } = useNavigation();
 
   // Check if the current route is accessible
   if (!canAccessRoute(location.pathname)) {
     console.log('Access denied to route:', location.pathname);
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to={`/${activeRole}/dashboard`} replace />;
   }
 
   return (
