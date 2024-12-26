@@ -36,7 +36,7 @@ export const sidebarData: SidebarData = {
   user: {
     name: "John Doe",
     email: "john@example.com",
-    avatar: "/placeholder.svg",
+    avatar: "https://github.com/shadcn.png", // Updated to use a real avatar URL
     role: "construction"
   },
   teams: [
