@@ -1,4 +1,3 @@
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { useEffect } from "react";
 import { useUser } from "@/hooks/use-user";
 import { sidebarData } from "@/data/sidebar";
@@ -12,14 +11,12 @@ const Index = () => {
   }, [setUser]);
 
   return (
-    <DashboardLayout>
-      <div className="space-y-4">
-        <h1 className="text-3xl font-bold">Welcome back!</h1>
-        <p className="text-muted-foreground">
-          Select a menu item from the sidebar to get started.
-        </p>
-      </div>
-    </DashboardLayout>
+    <div className="space-y-4">
+      <h1 className="text-3xl font-bold">Welcome back!</h1>
+      <p className="text-muted-foreground">
+        Select a menu item from the sidebar to get started.
+      </p>
+    </div>
   );
 };
 
