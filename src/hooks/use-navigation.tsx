@@ -13,7 +13,9 @@ export const useNavigation = create<NavigationStore>()(
   persist(
     (set, get) => ({
       activeRole: 'construction',
-      setActiveRole: (role) => set({ activeRole: role }),
+      setActiveRole: (role) => {
+        set({ activeRole: role });
+      },
       getMenuForRole: () => {
         const { activeRole } = get();
         return sidebarData.roleMenus?.[activeRole] || [];
@@ -32,7 +34,7 @@ export const useNavigation = create<NavigationStore>()(
         return menuItems.some(section => 
           section.items.some(item =>
             item.subItems.some(subItem => 
-              path.startsWith(subItem.href.substring(1))
+              path.startsWith(subItem.href.split('/')[1])
             )
           )
         );
