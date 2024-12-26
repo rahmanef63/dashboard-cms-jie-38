@@ -12,6 +12,6 @@ export const useNavigation = create<NavigationStore>((set, get) => ({
   setActiveRole: (role) => set({ activeRole: role }),
   getMenuForRole: () => {
     const { activeRole } = get();
-    return sidebarData.roleMenus[activeRole] || [];
+    return sidebarData.roleMenus?.[activeRole] || [];
   },
 }));

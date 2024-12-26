@@ -3,6 +3,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { sidebarData } from "@/data/sidebar";
 
 export function TeamSwitcher() {
+  if (!sidebarData.teams?.length) {
+    return null;
+  }
+
   return (
     <Select defaultValue={sidebarData.teams[0].name}>
       <SelectTrigger className="w-full">
