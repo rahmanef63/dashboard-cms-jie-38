@@ -1,6 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@/hooks/use-user";
 import { UserSettingsSheet } from "./user-settings-sheet";
+import { ProfileDrawer } from "./drawers/profile-drawer";
+import { NotificationsDrawer } from "./drawers/notifications-drawer";
+import { MessagesDrawer } from "./drawers/messages-drawer";
+import { PrivacyDrawer } from "./drawers/privacy-drawer";
+import { HelpDrawer } from "./drawers/help-drawer";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -41,7 +46,6 @@ export function UserProfile() {
       title: "Logging out...",
       description: "You will be redirected to the login page.",
     });
-    // Actual logout logic would go here
   };
 
   const handleKeyboardShortcuts = () => {
@@ -51,9 +55,20 @@ export function UserProfile() {
     });
   };
 
+  const openDrawer = (drawerId: string) => {
+    document
+      .querySelector<HTMLButtonElement>(`[data-drawer-trigger="${drawerId}"]`)
+      ?.click();
+  };
+
   return (
     <>
       <UserSettingsSheet />
+      <ProfileDrawer />
+      <NotificationsDrawer />
+      <MessagesDrawer />
+      <PrivacyDrawer />
+      <HelpDrawer />
       <DropdownMenu>
         <HoverCard>
           <HoverCardTrigger asChild>
@@ -120,17 +135,17 @@ export function UserProfile() {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => openDrawer("profile")}>
               <User className="mr-2 h-4 w-4" />
               <span>Profile</span>
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => openDrawer("notifications")}>
               <Bell className="mr-2 h-4 w-4" />
               <span>Notifications</span>
               <DropdownMenuShortcut>⌘N</DropdownMenuShortcut>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => openDrawer("messages")}>
               <Mail className="mr-2 h-4 w-4" />
               <span>Messages</span>
               <DropdownMenuShortcut>⌘M</DropdownMenuShortcut>
@@ -150,7 +165,7 @@ export function UserProfile() {
               <span>Settings</span>
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => openDrawer("privacy")}>
               <Shield className="mr-2 h-4 w-4" />
               <span>Privacy</span>
             </DropdownMenuItem>
@@ -159,7 +174,7 @@ export function UserProfile() {
               <span>Keyboard shortcuts</span>
               <DropdownMenuShortcut>?</DropdownMenuShortcut>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => openDrawer("help")}>
               <HelpCircle className="mr-2 h-4 w-4" />
               <span>Help & Support</span>
             </DropdownMenuItem>
