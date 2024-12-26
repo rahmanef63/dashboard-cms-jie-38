@@ -1,27 +1,44 @@
 import { RouteObject } from "react-router-dom";
 import { ErrorBoundary } from "@/components/error-boundary";
 import Index from "@/pages/Index";
+import ActiveSites from "@/pages/projects/sites";
 
-// Create pages for construction role routes
-<lov-write file_path="src/pages/projects/sites.tsx">
-import { PageLayout } from "@/components/layout/page-layout";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-export default function ActiveSites() {
-  return (
-    <PageLayout title="Active Sites">
-      <div className="space-y-6 p-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Active Construction Sites</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">
-              View and manage your active construction sites
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-    </PageLayout>
-  );
-}
+export const constructionRoutes: RouteObject[] = [
+  {
+    path: 'projects',
+    children: [
+      { 
+        path: 'sites', 
+        element: <ActiveSites />, 
+        errorElement: <ErrorBoundary /> 
+      }
+    ],
+    errorElement: <ErrorBoundary />
+  },
+  { 
+    path: 'chat', 
+    element: <Index />, 
+    errorElement: <ErrorBoundary /> 
+  },
+  {
+    path: 'communication',
+    children: [
+      { 
+        path: 'announcements', 
+        element: <Index />, 
+        errorElement: <ErrorBoundary /> 
+      },
+      { 
+        path: 'feedback', 
+        element: <Index />, 
+        errorElement: <ErrorBoundary /> 
+      },
+      { 
+        path: 'support', 
+        element: <Index />, 
+        errorElement: <ErrorBoundary /> 
+      }
+    ],
+    errorElement: <ErrorBoundary />
+  }
+];

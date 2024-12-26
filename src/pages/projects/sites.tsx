@@ -1,4 +1,5 @@
 import { PageLayout } from "@/components/layout/page-layout";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function ActiveSites() {
   return (
