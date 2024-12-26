@@ -1,7 +1,11 @@
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Shield, AlertTriangle } from "lucide-react";
 
 export function PrivacyDrawer() {
   return (
@@ -14,8 +18,18 @@ export function PrivacyDrawer() {
           <DrawerTitle>Privacy Settings</DrawerTitle>
         </DrawerHeader>
         <div className="p-6 space-y-6">
+          <Alert>
+            <AlertTriangle className="h-4 w-4" />
+            <AlertDescription>
+              These settings help control your visibility and data usage across the platform.
+            </AlertDescription>
+          </Alert>
+
           <Card>
-            <CardContent className="pt-6 space-y-4">
+            <CardHeader>
+              <CardTitle>Visibility Controls</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <Label htmlFor="profile-visibility">Profile Visibility</Label>
@@ -34,17 +48,65 @@ export function PrivacyDrawer() {
                 </div>
                 <Switch id="activity-status" />
               </div>
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <Label htmlFor="email-notifications">Email Notifications</Label>
-                  <p className="text-sm text-muted-foreground">
-                    Receive email notifications
-                  </p>
-                </div>
-                <Switch id="email-notifications" />
-              </div>
             </CardContent>
           </Card>
+
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="data-usage">
+              <AccordionTrigger>Data Usage & Privacy</AccordionTrigger>
+              <AccordionContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <Label htmlFor="data-collection">Data Collection</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Allow us to collect usage data to improve your experience
+                    </p>
+                  </div>
+                  <Switch id="data-collection" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <Label htmlFor="personalization">Personalization</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Receive personalized recommendations
+                    </p>
+                  </div>
+                  <Switch id="personalization" />
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="communication">
+              <AccordionTrigger>Communication Preferences</AccordionTrigger>
+              <AccordionContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <Label htmlFor="email-notifications">Email Notifications</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Receive email notifications
+                    </p>
+                  </div>
+                  <Switch id="email-notifications" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <Label htmlFor="marketing-emails">Marketing Emails</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Receive marketing and promotional emails
+                    </p>
+                  </div>
+                  <Switch id="marketing-emails" />
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
+          <div className="flex justify-end space-x-4">
+            <Button variant="outline">Reset Defaults</Button>
+            <Button>
+              <Shield className="mr-2 h-4 w-4" />
+              Save Privacy Settings
+            </Button>
+          </div>
         </div>
       </DrawerContent>
     </Drawer>

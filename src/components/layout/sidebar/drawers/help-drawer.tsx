@@ -1,5 +1,10 @@
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Search, HelpCircle, Book, MessageCircle, FileText } from "lucide-react";
 
 export function HelpDrawer() {
   const faqItems = [
@@ -17,6 +22,24 @@ export function HelpDrawer() {
     }
   ];
 
+  const guides = [
+    {
+      title: "Getting Started",
+      description: "Learn the basics of using the platform",
+      icon: Book
+    },
+    {
+      title: "Team Collaboration",
+      description: "Best practices for working with your team",
+      icon: MessageCircle
+    },
+    {
+      title: "Documentation",
+      description: "Detailed technical documentation",
+      icon: FileText
+    }
+  ];
+
   return (
     <Drawer>
       <DrawerTrigger className="hidden" data-drawer-trigger="help">
@@ -25,16 +48,62 @@ export function HelpDrawer() {
       <DrawerContent className="w-[400px] sm:w-[540px]">
         <DrawerHeader>
           <DrawerTitle>Help & Support</DrawerTitle>
+          <div className="relative mt-4">
+            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input placeholder="Search help articles..." className="pl-8" />
+          </div>
         </DrawerHeader>
         <div className="p-6">
-          <Accordion type="single" collapsible className="w-full">
-            {faqItems.map((item, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger>{item.question}</AccordionTrigger>
-                <AccordionContent>{item.answer}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <Tabs defaultValue="faq" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="faq">FAQ</TabsTrigger>
+              <TabsTrigger value="guides">Guides</TabsTrigger>
+            </TabsList>
+            <TabsContent value="faq" className="space-y-4">
+              <Accordion type="single" collapsible className="w-full">
+                {faqItems.map((item, index) => (
+                  <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger>{item.question}</AccordionTrigger>
+                    <AccordionContent>{item.answer}</AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </TabsContent>
+            <TabsContent value="guides" className="space-y-4">
+              {guides.map((guide, index) => (
+                <Card key={index} className="cursor-pointer hover:bg-accent">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <guide.icon className="h-5 w-5" />
+                      {guide.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">
+                      {guide.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </TabsContent>
+          </Tabs>
+
+          <div className="mt-6">
+            <Card className="bg-muted">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <HelpCircle className="h-5 w-5" />
+                  Need more help?
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Can't find what you're looking for? Contact our support team.
+                </p>
+                <Button className="w-full">Contact Support</Button>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </DrawerContent>
     </Drawer>

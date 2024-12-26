@@ -1,24 +1,43 @@
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Search, MessageSquare } from "lucide-react";
 
 export function MessagesDrawer() {
-  const messages = [
-    {
-      id: 1,
-      sender: "Alice Smith",
-      avatar: "/avatars/alice.jpg",
-      message: "Hey, can we discuss the project?",
-      time: "10:30 AM"
-    },
-    {
-      id: 2,
-      sender: "Bob Johnson",
-      avatar: "/avatars/bob.jpg",
-      message: "The designs look great!",
-      time: "Yesterday"
-    }
-  ];
+  const messages = {
+    direct: [
+      {
+        id: 1,
+        sender: "Alice Smith",
+        avatar: "/avatars/alice.jpg",
+        message: "Hey, can we discuss the project?",
+        time: "10:30 AM",
+        unread: true
+      },
+      {
+        id: 2,
+        sender: "Bob Johnson",
+        avatar: "/avatars/bob.jpg",
+        message: "The designs look great!",
+        time: "Yesterday",
+        unread: false
+      }
+    ],
+    team: [
+      {
+        id: 3,
+        sender: "Design Team",
+        avatar: "/avatars/design-team.jpg",
+        message: "Weekly design review starting soon",
+        time: "2h ago",
+        unread: true
+      }
+    ]
+  };
 
   return (
     <Drawer>
@@ -28,33 +47,53 @@ export function MessagesDrawer() {
       <DrawerContent className="w-[400px] sm:w-[540px]">
         <DrawerHeader>
           <DrawerTitle>Messages</DrawerTitle>
-        </DrawerHeader>
-        <ScrollArea className="h-[400px] p-6">
-          <div className="space-y-4">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className="flex items-start space-x-4 p-4 rounded-lg border"
-              >
-                <Avatar>
-                  <AvatarImage src={message.avatar} />
-                  <AvatarFallback>{message.sender[0]}</AvatarFallback>
-                </Avatar>
-                <div className="flex-1">
-                  <div className="flex justify-between">
-                    <h4 className="text-sm font-medium">{message.sender}</h4>
-                    <span className="text-xs text-muted-foreground">
-                      {message.time}
-                    </span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    {message.message}
-                  </p>
-                </div>
-              </div>
-            ))}
+          <div className="relative mt-4">
+            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input placeholder="Search messages..." className="pl-8" />
           </div>
-        </ScrollArea>
+        </DrawerHeader>
+        <div className="p-6">
+          <Tabs defaultValue="direct" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="direct">Direct Messages</TabsTrigger>
+              <TabsTrigger value="team">Team Chats</TabsTrigger>
+            </TabsList>
+            {Object.entries(messages).map(([key, items]) => (
+              <TabsContent key={key} value={key}>
+                <ScrollArea className="h-[400px]">
+                  <div className="space-y-4">
+                    {items.map((message) => (
+                      <Card key={message.id} className="p-4 hover:bg-accent cursor-pointer">
+                        <div className="flex items-start space-x-4">
+                          <Avatar>
+                            <AvatarImage src={message.avatar} />
+                            <AvatarFallback>{message.sender[0]}</AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1">
+                            <div className="flex justify-between items-start">
+                              <h4 className="text-sm font-medium">{message.sender}</h4>
+                              <span className="text-xs text-muted-foreground">{message.time}</span>
+                            </div>
+                            <p className="text-sm text-muted-foreground line-clamp-1">{message.message}</p>
+                          </div>
+                          {message.unread && (
+                            <div className="w-2 h-2 bg-blue-500 rounded-full" />
+                          )}
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </TabsContent>
+            ))}
+          </Tabs>
+          <div className="mt-4">
+            <Button className="w-full">
+              <MessageSquare className="mr-2 h-4 w-4" />
+              New Message
+            </Button>
+          </div>
+        </div>
       </DrawerContent>
     </Drawer>
   );
