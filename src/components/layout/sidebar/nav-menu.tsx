@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigation } from "@/hooks/use-navigation";
+import { useProjectRoutes } from "@/hooks/use-project-routes";
 import { cn } from "@/lib/utils";
 import {
   Collapsible,
@@ -13,6 +14,7 @@ export function NavMenu() {
   const { getMenuForRole } = useNavigation();
   const [openSections, setOpenSections] = useState<string[]>([]);
   const location = useLocation();
+  const { getProjectPath } = useProjectRoutes();
 
   const menuSections = getMenuForRole();
 

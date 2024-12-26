@@ -2,7 +2,9 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import Index from "@/pages/Index";
 import ActiveSites from "@/pages/projects/sites";
-import WireframesPage from "@/pages/design/wireframes";
+import Progress from "@/pages/projects/progress";
+import Schedule from "@/pages/projects/schedule";
+import BudgetTracking from "@/pages/projects/budget-tracking";
 import { RouteObject } from "react-router-dom";
 
 // Common routes shared across all roles
@@ -29,22 +31,25 @@ const commonRoutes: RouteObject[] = [
   },
 ];
 
+// Project routes configuration
+const projectRoutes: RouteObject[] = [
+  { path: 'sites', element: <ActiveSites />, errorElement: <ErrorBoundary /> },
+  { path: 'progress', element: <Progress />, errorElement: <ErrorBoundary /> },
+  { path: 'schedule', element: <Schedule />, errorElement: <ErrorBoundary /> },
+  { path: 'budget-tracking', element: <BudgetTracking />, errorElement: <ErrorBoundary /> },
+];
+
 // Role-specific routes
 const roleSpecificRoutes: { [key: string]: RouteObject[] } = {
   construction: [
-    { 
-      path: 'projects/*', 
-      children: [
-        { path: 'sites', element: <ActiveSites />, errorElement: <ErrorBoundary /> },
-        { path: 'progress', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'schedule', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'contracts', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'budget-tracking', element: <Index />, errorElement: <ErrorBoundary /> },
-      ]
+    {
+      path: 'projects',
+      children: projectRoutes,
+      errorElement: <ErrorBoundary />
     },
     { path: 'chat', element: <Index />, errorElement: <ErrorBoundary /> },
-    { 
-      path: 'communication/*', 
+    {
+      path: 'communication',
       children: [
         { path: 'announcements', element: <Index />, errorElement: <ErrorBoundary /> },
         { path: 'feedback', element: <Index />, errorElement: <ErrorBoundary /> },
@@ -54,9 +59,9 @@ const roleSpecificRoutes: { [key: string]: RouteObject[] } = {
   ],
   designer: [
     { 
-      path: 'design/*', 
+      path: 'design', 
       children: [
-        { path: 'wireframes', element: <WireframesPage />, errorElement: <ErrorBoundary /> },
+        { path: 'wireframes', element: <Index />, errorElement: <ErrorBoundary /> },
         { path: 'mockups', element: <Index />, errorElement: <ErrorBoundary /> },
         { path: 'prototypes', element: <Index />, errorElement: <ErrorBoundary /> },
         { path: 'system', element: <Index />, errorElement: <ErrorBoundary /> },
@@ -71,7 +76,7 @@ const roleSpecificRoutes: { [key: string]: RouteObject[] } = {
   ],
   architect: [
     { 
-      path: 'architecture/*', 
+      path: 'architecture', 
       children: [
         { path: 'blueprints', element: <Index />, errorElement: <ErrorBoundary /> },
         { path: 'models', element: <Index />, errorElement: <ErrorBoundary /> },
@@ -88,7 +93,7 @@ const roleSpecificRoutes: { [key: string]: RouteObject[] } = {
   ],
   client: [
     { 
-      path: 'client/*', 
+      path: 'client', 
       children: [
         { path: 'dashboard', element: <Index />, errorElement: <ErrorBoundary /> },
         { path: 'projects', element: <Index />, errorElement: <ErrorBoundary /> },
