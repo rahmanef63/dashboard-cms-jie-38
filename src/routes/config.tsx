@@ -1,11 +1,11 @@
 import { ErrorBoundary } from "@/components/error-boundary";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import Index from "@/pages/Index";
-import ActiveSites from "@/pages/projects/sites";
-import Progress from "@/pages/projects/progress";
-import Schedule from "@/pages/projects/schedule";
-import BudgetTracking from "@/pages/projects/budget-tracking";
 import { RouteObject } from "react-router-dom";
+import { constructionRoutes } from "./roles/construction";
+import { designerRoutes } from "./roles/designer";
+import { architectRoutes } from "./roles/architect";
+import { clientRoutes } from "./roles/client";
 
 // Common routes shared across all roles
 const commonRoutes: RouteObject[] = [
@@ -31,82 +31,12 @@ const commonRoutes: RouteObject[] = [
   },
 ];
 
-// Project routes configuration
-const projectRoutes: RouteObject[] = [
-  { path: 'sites', element: <ActiveSites />, errorElement: <ErrorBoundary /> },
-  { path: 'progress', element: <Progress />, errorElement: <ErrorBoundary /> },
-  { path: 'schedule', element: <Schedule />, errorElement: <ErrorBoundary /> },
-  { path: 'budget-tracking', element: <BudgetTracking />, errorElement: <ErrorBoundary /> },
-];
-
 // Role-specific routes
 const roleSpecificRoutes: { [key: string]: RouteObject[] } = {
-  construction: [
-    {
-      path: 'projects',
-      children: projectRoutes,
-      errorElement: <ErrorBoundary />
-    },
-    { path: 'chat', element: <Index />, errorElement: <ErrorBoundary /> },
-    {
-      path: 'communication',
-      children: [
-        { path: 'announcements', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'feedback', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'support', element: <Index />, errorElement: <ErrorBoundary /> },
-      ]
-    },
-  ],
-  designer: [
-    { 
-      path: 'design', 
-      children: [
-        { path: 'wireframes', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'mockups', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'prototypes', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'system', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'assets', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'components', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'templates', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'team-projects', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'feedback', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'reviews', element: <Index />, errorElement: <ErrorBoundary /> },
-      ]
-    },
-  ],
-  architect: [
-    { 
-      path: 'architecture', 
-      children: [
-        { path: 'blueprints', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'models', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'site-analysis', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'specifications', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'standards', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'documentation', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'resources', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'design-reviews', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'technical-reviews', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'compliance', element: <Index />, errorElement: <ErrorBoundary /> },
-      ]
-    },
-  ],
-  client: [
-    { 
-      path: 'client', 
-      children: [
-        { path: 'dashboard', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'projects', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'timeline', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'invoices', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'payments', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'budget', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'progress-reports', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'financial-reports', element: <Index />, errorElement: <ErrorBoundary /> },
-        { path: 'analytics', element: <Index />, errorElement: <ErrorBoundary /> },
-      ]
-    },
-  ],
+  construction: [...commonRoutes, ...constructionRoutes],
+  designer: [...commonRoutes, ...designerRoutes],
+  architect: [...commonRoutes, ...architectRoutes],
+  client: [...commonRoutes, ...clientRoutes],
 };
 
 // Generate dynamic role-based routes
@@ -115,10 +45,7 @@ const generateRoleRoutes = (): RouteObject[] => {
   
   return roles.map((role) => ({
     path: role,
-    children: [
-      ...commonRoutes,
-      ...roleSpecificRoutes[role],
-    ],
+    children: roleSpecificRoutes[role],
   }));
 };
 
