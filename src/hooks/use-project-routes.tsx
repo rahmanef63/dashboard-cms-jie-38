@@ -17,7 +17,8 @@ export const useProjectRoutes = () => {
   };
 
   const isProjectRoute = (path: string) => {
-    return location.pathname.includes(getProjectPath(path));
+    const fullPath = getProjectPath(path);
+    return location.pathname === fullPath;
   };
 
   return {

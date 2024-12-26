@@ -10,6 +10,11 @@ import { clientRoutes } from "./roles/client";
 // Common routes shared across all roles
 const commonRoutes: RouteObject[] = [
   { 
+    path: 'dashboard', 
+    element: <Index />, 
+    errorElement: <ErrorBoundary /> 
+  },
+  { 
     path: 'profile', 
     element: <Index />, 
     errorElement: <ErrorBoundary /> 
