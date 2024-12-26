@@ -4,13 +4,13 @@ import { Switch } from "@/components/ui/switch";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 
-export function UserSettingsSheet({ children }: { children: React.ReactNode }) {
+export function UserSettingsSheet() {
   const { theme, setTheme } = useTheme();
 
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        {children}
+      <SheetTrigger className="hidden" data-sheet-trigger>
+        Open Settings
       </SheetTrigger>
       <SheetContent className="w-[400px] sm:w-[540px]">
         <SheetHeader>
