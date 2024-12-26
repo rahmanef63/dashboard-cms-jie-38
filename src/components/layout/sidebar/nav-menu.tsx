@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useNavigation } from "@/hooks/use-navigation";
 import { cn } from "@/lib/utils";
 import {
@@ -50,14 +51,14 @@ export function NavMenu() {
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-1">
                   {item.subItems.map((subItem) => (
-                    <a
+                    <Link
                       key={subItem.href}
-                      href={subItem.href}
+                      to={subItem.href}
                       className="flex items-center gap-2 px-8 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
                     >
                       {subItem.icon && <subItem.icon className="h-4 w-4" />}
                       <span>{subItem.label}</span>
-                    </a>
+                    </Link>
                   ))}
                 </CollapsibleContent>
               </Collapsible>

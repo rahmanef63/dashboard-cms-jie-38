@@ -29,17 +29,19 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/projects/sites" element={<ActiveSites />} />
-          <Route path="/projects/progress" element={<Progress />} />
-          <Route path="/projects/schedule" element={<Schedule />} />
-          <Route path="/projects/contracts" element={<Contracts />} />
-          <Route path="/projects/budget-tracking" element={<BudgetTracking />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/communication/announcements" element={<Announcements />} />
-          <Route path="/communication/feedback" element={<Feedback />} />
-          <Route path="/communication/support" element={<Support />} />
+          <Route element={<DashboardLayout />}>
+            <Route path="/" element={<Index />} />
+            <Route path="/projects/sites" element={<ActiveSites />} />
+            <Route path="/projects/progress" element={<Progress />} />
+            <Route path="/projects/schedule" element={<Schedule />} />
+            <Route path="/projects/contracts" element={<Contracts />} />
+            <Route path="/projects/budget-tracking" element={<BudgetTracking />} />
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/communication/announcements" element={<Announcements />} />
+            <Route path="/communication/feedback" element={<Feedback />} />
+            <Route path="/communication/support" element={<Support />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
