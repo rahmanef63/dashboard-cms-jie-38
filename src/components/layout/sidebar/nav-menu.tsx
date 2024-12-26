@@ -27,7 +27,7 @@ export function NavMenu() {
     <div className="space-y-4 py-4">
       {menuSections.map((section) => (
         <div key={section.title} className="px-3">
-          <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+          <h2 className="mb-2 px-4 text-sm font-semibold tracking-tight text-sidebar-foreground/70">
             {section.title}
           </h2>
           <div className="space-y-1">
@@ -37,7 +37,7 @@ export function NavMenu() {
                 open={openSections.includes(item.label)}
                 onOpenChange={() => toggleSection(item.label)}
               >
-                <CollapsibleTrigger className="flex w-full items-center justify-between px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground">
+                <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-4 py-2 text-sm font-medium hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
                   <div className="flex items-center gap-2">
                     {item.icon && <item.icon className="h-4 w-4" />}
                     <span>{item.label}</span>
@@ -54,7 +54,7 @@ export function NavMenu() {
                     <Link
                       key={subItem.href}
                       to={subItem.href}
-                      className="flex items-center gap-2 px-8 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                      className="flex items-center gap-2 rounded-md px-8 py-2 text-sm text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                     >
                       {subItem.icon && <subItem.icon className="h-4 w-4" />}
                       <span>{subItem.label}</span>
