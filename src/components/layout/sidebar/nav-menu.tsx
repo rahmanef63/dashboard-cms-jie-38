@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useNavigation } from "@/hooks/use-navigation";
 import { cn } from "@/lib/utils";
 import {
@@ -12,6 +12,7 @@ import { ChevronDown } from "lucide-react";
 export function NavMenu() {
   const { getMenuForRole } = useNavigation();
   const [openSections, setOpenSections] = useState<string[]>([]);
+  const location = useLocation();
 
   const menuSections = getMenuForRole();
 
@@ -54,7 +55,10 @@ export function NavMenu() {
                     <Link
                       key={subItem.href}
                       to={subItem.href}
-                      className="flex items-center gap-2 rounded-md px-8 py-2 text-sm text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                      className={cn(
+                        "flex items-center gap-2 rounded-md px-8 py-2 text-sm text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                        location.pathname === subItem.href && "bg-sidebar-accent text-sidebar-accent-foreground"
+                      )}
                     >
                       {subItem.icon && <subItem.icon className="h-4 w-4" />}
                       <span>{subItem.label}</span>
