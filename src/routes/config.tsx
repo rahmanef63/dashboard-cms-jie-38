@@ -2,10 +2,7 @@ import { RouteObject } from "react-router-dom";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import Index from "@/pages/Index";
-import WireframesPage from "@/pages/design/wireframes";
-import ActiveSites from "@/pages/projects/sites";
 import Notifications from "@/pages/notifications";
-import UserManagement from "@/pages/admin/user-management";
 
 // Import role-specific routes
 import { constructionRoutes } from "./roles/construction";
@@ -21,12 +18,6 @@ export const routeConfig: RouteObject = {
     {
       index: true,
       element: <Index />,
-      errorElement: <ErrorBoundary />
-    },
-    // Admin routes
-    {
-      path: "admin/user-management",
-      element: <UserManagement />,
       errorElement: <ErrorBoundary />
     },
     // Construction routes
