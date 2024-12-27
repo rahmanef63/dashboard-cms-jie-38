@@ -183,7 +183,6 @@ const SitesContent = () => (
   </div>
 );
 
-// Main component
 export default function ActiveSites() {
   return (
     <PageLayout title="Construction Sites">
