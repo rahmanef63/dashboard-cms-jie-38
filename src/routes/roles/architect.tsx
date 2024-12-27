@@ -1,6 +1,7 @@
 import { RouteObject } from "react-router-dom";
 import { ErrorBoundary } from "@/components/error-boundary";
 import Index from "@/pages/Index";
+import BlueprintsPage from "@/pages/architecture/blueprints";
 
 export const architectRoutes: RouteObject[] = [
   {
@@ -13,7 +14,7 @@ export const architectRoutes: RouteObject[] = [
     children: [
       {
         path: "blueprints",
-        element: <Index />,
+        element: <BlueprintsPage />,
         errorElement: <ErrorBoundary />
       },
       {
